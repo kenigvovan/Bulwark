@@ -1,6 +1,7 @@
 ﻿using Bulwark.src;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
 
@@ -24,27 +25,43 @@ namespace Bulwark {
             {
                 config = new Config();
             }
-             api.StoreModConfig<Config>(config, "BulwarkModConfig.json");
+            api.StoreModConfig<Config>(config, "BulwarkModConfig.json");
+            if (api is ICoreServerAPI sapi)
+            {
+                               
+            } // if ..
         } // void ..
         
 
         public override void AssetsFinalize(ICoreAPI api) {
             base.AssetsFinalize(api);
-            foreach (Block block in api.World.Blocks) {
-                if (config.AllStoneBlockRequirePickaxe
-                    && block.BlockMaterial      == EnumBlockMaterial.Stone
-                    && block.Replaceable        <= 200
-                    && block.CollisionBoxes     != null
-                    && block.RequiredMiningTier <  2
-                ) block.RequiredMiningTier = 2;
+            foreach (Block block in api.World.Blocks) 
+            {
+                if (config.AllStoneBlockRequirePickaxe && block.BlockMaterial == EnumBlockMaterial.Stone && block.Replaceable <= 200 && block.CollisionBoxes != null && block.RequiredMiningTier < 2) 
+                { 
+                    block.RequiredMiningTier = 2; 
+                }
                 
-                if (block is BlockDoor || block.HasBehavior<BlockBehaviorDoor>()) {
+                if (block is BlockDoor || block.HasBehavior<BlockBehaviorDoor>()) 
+                {
                     if (block.BlockMaterial == EnumBlockMaterial.Metal && block.RequiredMiningTier < 3)
+                    {
                         block.RequiredMiningTier = 3;
+                    }
                     else if (block.BlockMaterial == EnumBlockMaterial.Wood && block.RequiredMiningTier < 2)
+                    {
                         block.RequiredMiningTier = block.Code.EndVariant() == "crude" ? 1 : 2;
-                } // if ..
-            } // foreach ..
-        } // void ..
-    } // class ..
-} // namespace ..
+                    }
+                }
+            }
+            /*foreach(var pair in BulwarkModSystem.config.BlockBrakeTiers)
+            {
+                Block[] found_blocks = api.World.SearchBlocks(new AssetLocation(pair.Key));
+                foreach (var block in found_blocks)
+                {
+                    block.RequiredMiningTier = pair.Value;
+                }
+            }*/
+        }
+    }
+}

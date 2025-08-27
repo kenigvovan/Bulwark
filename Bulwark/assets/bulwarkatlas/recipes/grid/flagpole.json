@@ -12,14 +12,14 @@
 		"output": { "type": "block", "code": "bulwarkatlas:flagpole-fort" }
 	},
 	{
-		"ingredientPattern": "AB,CB,DB",
+		"ingredientPattern": "AB_,CB_,DBB",
 		"ingredients": {
 			"A": { "type": "item",  "code": "game:rope" },
 			"B": { "type": "block", "code": "game:debarkedlog-*-ud", "name": "wood", "quantity": 2 },
 			"C": { "type": "item",  "code": "game:hammer-*", "isTool": true },
 			"D": { "type": "item",  "code": "game:chisel-*", "isTool": true }
 		},
-		"width":  2,
+		"width":  3,
 		"height": 3,
 		"output": { "type": "block", "code": "bulwarkatlas:flagpole-city" }
 	}

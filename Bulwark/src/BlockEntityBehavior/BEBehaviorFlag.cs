@@ -70,8 +70,16 @@ namespace Bulwark {
                 base.Initialize(api, properties);
 
                 this.BlockBehavior = this.Block.GetBehavior<BlockBehaviorFlag>();
+                int protectionRadius = properties["protectionRadius"].AsInt(16);
+                if (this.Block.Code.Path.EndsWith("-fort"))
+                {
+                    protectionRadius = BulwarkModSystem.config.FortProtectionRadius;
+                }
+                else if (this.Block.Code.Path.EndsWith("-city"))
+                {
+                    protectionRadius = BulwarkModSystem.config.CityProtectionRadius;
+                }
 
-                int protectionRadius   = properties["protectionRadius"].AsInt(16);
                 this.captureDuration   = properties["captureDuration"].AsFloat(4f);
                 this.Stronghold.Center = this.Pos;
                 this.Stronghold.Area   = new Cuboidi(

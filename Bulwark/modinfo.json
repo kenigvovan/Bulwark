@@ -4,7 +4,7 @@
   "name": "The Atlas Bulwark Fork",
   "authors": [ "Lastelle", "KenigVovan" ],
   "description": "A civilisation mod",
-  "version": "0.1.0",
+  "version": "0.1.8",
   "dependencies": {
     "game": ""
   }
